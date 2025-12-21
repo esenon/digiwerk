@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digiwerks | Intelligent Systems</title>
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #030307;
+            --text-white: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.65);
+            --accent-blue: #3b82f6;
+            --accent-purple: #9b51e0;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --gradient-main: linear-gradient(90deg, #9b51e0 0%, #3b82f6 40%, #d946ef 80%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-white);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- NAVIGATION & MOBILE MENU --- */
+        nav {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px 7%;
+            z-index: 100;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-white);
+            font-size: 15px; 
+            font-weight: 600; 
+            letter-spacing: 1px; 
+            text-transform: uppercase;
+            z-index: 1001; /* Stay above mobile menu */
+        }
+        .logo-image { height: 26px; width: auto; margin-right: 12px; filter: brightness(0) invert(1); }
+        
+        .nav-links { display: flex; gap: 35px; align-items: center; }
+        .nav-links a { color: var(--text-white); text-decoration: none; font-size: 14px; opacity: 0.9; transition: opacity 0.3s; }
+        .nav-links a:hover { opacity: 1; color: var(--accent-blue); }
+
+        /* Mobile Toggle Button */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+        }
+        .mobile-toggle span {
+            width: 30px;
+            height: 2px;
+            background: var(--text-white);
+            transition: 0.3s;
+        }
+
+        /* Responsive Nav Logic */
+        @media (max-width: 992px) {
+            .mobile-toggle { display: flex; }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%; /* Hidden by default */
+                width: 80%;
+                max-width: 400px;
+                height: 100vh;
+                background: rgba(3, 3, 7, 0.98);
+                backdrop-filter: blur(20px);
+                border-left: 1px solid var(--glass-border);
+                flex-direction: column;
+                justify-content: center;
+                gap: 40px;
+                padding: 100px 40px;
+                transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 24px; font-family: 'Space Grotesk', sans-serif; }
+
+            /* Hamburger to X Animation */
+            .mobile-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .mobile-toggle.active span:nth-child(2) { opacity: 0; }
+            .mobile-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        }
+
+        /* --- REST OF STYLES --- */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 80px 80px; z-index: 0; pointer-events: none;
+        }
+
+        .hero { height: 100vh; display: flex; align-items: center; padding-left: 10%; position: relative; }
+        .content { position: relative; z-index: 10; max-width: 900px; margin-top: 100px; animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 72px; font-weight: 700; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 30px; }
+        .gradient-text { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .white-text { display: block; }
+        p.sub-hero { font-size: 19px; line-height: 1.5; color: var(--text-dim); max-width: 620px; font-weight: 400; margin-bottom: 40px; }
+        .badges { display: flex; gap: 12px; flex-wrap: wrap; }
+        .badges span { background: var(--glass); border: 1px solid var(--glass-border); padding: 8px 16px; border-radius: 999px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-main { display: inline-block; background: #fff; color: #000; padding: 18px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; margin-top: 30px; transition: transform 0.2s; }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2); }
+
+        .sphere-container { position: absolute; right: -12%; top: 48%; transform: translateY(-50%); width: 900px; height: 900px; pointer-events: none; }
+        .sphere-visual { width: 100%; height: 100%; border-radius: 50%; background: #030307; position: relative; filter: url(#liquid-distort); overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08); }
+        .liquid-core { position: absolute; inset: -50%; background: conic-gradient(from 180deg at 50% 50%, #2e5bff, #a855f7, #ec4899, #f59e0b, #2e5bff); filter: blur(60px) saturate(1.8); animation: rotateFlow 15s infinite linear; opacity: 0.8; }
+        .liquid-core::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 20%, #030307 70%); }
+        .sphere-visual::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, transparent 50%); box-shadow: inset -20px -20px 80px rgba(0,0,0,0.9); z-index: 5; }
+
+        section { padding: 120px 10%; position: relative; z-index: 10; }
+        h2 { font-family: 'Space Grotesk', sans-serif; font-size: 48px; margin-bottom: 20px; text-align: center; }
+        .section-sub { text-align: center; color: var(--text-dim); margin-bottom: 60px; font-size: 18px; }
+
+        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(280px, auto); gap: 20px; }
+        .bento-card { background: var(--glass); border: 1px solid var(--glass-border); padding: 40px; border-radius: 24px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; justify-content: flex-end; backdrop-filter: blur(5px); position: relative; overflow: hidden; }
+        .bento-card:hover { border-color: var(--accent-blue); background: rgba(255,255,255,0.06); transform: translateY(-5px); }
+        .bento-card.large { grid-column: span 2; }
+        .bento-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 28px; margin-bottom: 12px; }
+        .bento-card p { color: var(--text-dim); line-height: 1.6; }
+        .icon-svg { width: 42px; height: 42px; stroke: var(--accent-blue); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-bottom: auto; }
+
+        .process-container { display: flex; justify-content: space-between; gap: 40px; margin-top: 50px; }
+        .process-step { flex: 1; position: relative; padding: 40px 30px 30px; background: var(--glass); border-radius: 20px; border: 1px solid var(--glass-border); }
+        .step-number { position: absolute; top: -20px; left: 20px; width: 45px; height: 45px; background: var(--gradient-main); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-family: 'Space Grotesk', sans-serif; }
+
+        .calculator-wrapper { background: linear-gradient(180deg, var(--glass) 0%, transparent 100%); border: 1px solid var(--glass-border); border-radius: 32px; padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .calculator input { width: 100%; padding: 18px; margin-top: 8px; background: #000; border: 1px solid var(--glass-border); border-radius: 12px; color: #fff; font-size: 18px; outline: none; }
+        .calc-display { background: rgba(255,255,255,0.02); border-radius: 24px; padding: 40px; text-align: center; border: 1px dashed var(--glass-border); min-height: 180px; display: flex; align-items: center; justify-content: center; }
+
+        details { background: var(--glass); padding: 24px; border-radius: 16px; border: 1px solid var(--glass-border); margin-bottom: 16px; cursor: pointer; }
+        summary { font-weight: 700; font-size: 18px; font-family: 'Space Grotesk', sans-serif; list-style: none; display: flex; justify-content: space-between; }
+        summary::after { content: '+'; color: var(--accent-blue); }
+
+        .lead-form { background: rgba(255,255,255,0.02); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); padding: 50px; border-radius: 24px; }
+        .btn-submit { width: 100%; padding: 20px; background: var(--gradient-main); color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 30px; font-size: 16px; transition: 0.3s; }
+        .btn-submit:hover { opacity: 0.9; transform: scale(1.01); }
+
+        footer { padding: 100px 10% 50px; border-top: 1px solid var(--glass-border); display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; }
+
+        @keyframes rotateFlow { from { transform: rotate(0deg) scale(1.2); } to { transform: rotate(360deg) scale(1.2); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 992px) {
+            .bento-grid, .calculator-wrapper, .process-container, footer { grid-template-columns: 1fr; flex-direction: column; }
+            .bento-card.large { grid-column: span 1; }
+            h1 { font-size: 52px; }
+            nav { padding: 30px 5%; }
+            .sphere-container { width: 600px; height: 600px; right: -20%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-overlay"></div>
+
+    <svg style="position: absolute; width: 0; height: 0;">
+      <filter id="liquid-distort">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="4" seed="5" result="noise">
+          <animate attributeName="baseFrequency" values="0.012;0.02;0.012" dur="8s" repeatCount="indefinite" />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="100" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </svg>
+
+    <nav>
+        <a href="#" class="logo-container">
+            <img src="digiwerkslogo.png" alt="Digiwerks" class="logo-image">
+            <span>Digiwerks</span>
+        </a>
+        
+        <button class="mobile-toggle" id="mobileToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-links" id="navLinks">
+            <a href="#solutions">Solutions</a>
+            <a href="#how">Process</a>
+            <a href="#faq">FAQs</a>
+            <a href="#contact">Get a custom offer</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="content">
+            <h1>
+                <span class="gradient-text">AI booking systems</span>
+                <span class="white-text">built for your workflow.</span>
+            </h1>
+            <p class="sub-hero">Digiwerks builds deeply customized AI sales systems that answer every lead, qualify real opportunities, overcome common objections, and book directly into your workflow — 24/7.</p>
+            
+            <div class="badges">
+                <span>24/7 answering</span>
+                <span>CRM-native</span>
+                <span>Local market trained</span>
+            </div>
+
+            <a href="#contact" class="btn-main">Get Started Today</a>
+        </div>
+
+        <div class="sphere-container">
+            <div class="sphere-visual">
+                <div class="liquid-core"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solutions">
+        <h2 data-aos="fade-up">The Edge Your Business Needs</h2>
+        <p class="section-sub" data-aos="fade-up">Traditional chatbots fail because they don't know your business. We build systems that do.</p>
+        
+        <div class="bento-grid">
+            <div class="bento-card large" data-aos="fade-right">
+                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM5 10a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V10zM9 13v3M15 13v3M8 8V6a4 4 0 0 1 8 0v2"></path></svg>
+                <h3>Local & Service-Specific</h3>
+                <p>Your AI understands the difference between a "quick fix" and a "major install," knows your service area boundaries, and qualifies leads based on your specific profit margins.</p>
+            </div>
+            <div class="bento-card" data-aos="fade-left">
+                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                <h3>Never miss a lead</h3>
+                <p>Every call, text, and form is handled instantly — ensuring you're always the first to respond to a prospect.</p>
+            </div>
+            <div class="bento-card" data-aos="fade-up">
+                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <h3>Books automatically</h3>
+                <p>Qualified jobs land directly in your calendar or dispatch system (ServiceTitan, Housecall Pro, etc.) with full context.</p>
+            </div>
+            <div class="bento-card large" data-aos="fade-up">
+                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <h3>Advanced Objection Handling</h3>
+                <p>We train your system on your specific pricing logic and past sales conversations to overcome customer hesitation in real-time.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how">
+        <h2 data-aos="fade-up">The Path to Automation</h2>
+        <div class="process-container">
+            <div class="process-step" data-aos="zoom-in" data-aos-delay="0">
+                <div class="step-number">01</div>
+                <h3 style="margin-bottom:10px;">Deep Dive</h3>
+                <p style="color:var(--text-dim)">We audit your current missed calls and map out your unique business logic and pricing rules.</p>
+            </div>
+            <div class="process-step" data-aos="zoom-in" data-aos-delay="100">
+                <div class="step-number">02</div>
+                <h3 style="margin-bottom:10px;">Neural Training</h3>
+                <p style="color:var(--text-dim)">We train your custom AI model on your successful sales conversations and industry-specific terminology.</p>
+            </div>
+            <div class="process-step" data-aos="zoom-in" data-aos-delay="200">
+                <div class="step-number">03</div>
+                <h3 style="margin-bottom:10px;">Integration</h3>
+                <p style="color:var(--text-dim)">The system goes live, connecting to your phone lines and CRM. We optimize daily based on real-world results.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="calculator-wrapper" data-aos="fade-up">
+            <div class="calculator">
+                <h2 style="text-align: left; font-size: 36px;">Revenue Estimator</h2>
+                <div class="calc-inputs">
+                    <label style="display:block; margin-bottom:15px;">Average job value ($)<input id="avgValue" type="number" placeholder="e.g. 500"></label>
+                    <label style="display:block; margin-bottom:15px;">Missed leads per week<input id="missedCalls" type="number" placeholder="e.g. 10"></label>
+                    <label style="display:block; margin-bottom:15px;">Close rate (%)<input id="closeRate" type="number" placeholder="e.g. 25"></label>
+                    <label style="display:block; margin-bottom:15px;">Monthly service cost ($)<input id="monthlyCost" type="number" placeholder="e.g. 300"></label>
+                </div>
+            </div>
+            <div class="calc-display" id="calcResult">
+                <p style="color: var(--text-dim)">Enter your details to calculate ROI</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <h2 data-aos="fade-up">Common questions</h2>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <details data-aos="fade-up"><summary>Is this just a chatbot?</summary><p style="padding-top:15px; color:var(--text-dim)">No — this is a full sales and booking system across voice, text, and CRM. It's designed to perform complex sales logic, not just give canned answers.</p></details>
+            <details data-aos="fade-up"><summary>Can I keep my current number?</summary><p style="padding-top:15px; color:var(--text-dim)">Yes, we can port your existing business number to our platform or provision a new one for you.</p></details>
+            <details data-aos="fade-up"><summary>How fast can this go live?</summary><p style="padding-top:15px; color:var(--text-dim)">Typically 7-10 business days once we have completed the deep-dive and integrations are confirmed.</p></details>
+            <details data-aos="fade-up"><summary>Is there a contract?</summary><p style="padding-top:15px; color:var(--text-dim)">We operate on a year-to-year basis. We earn your business every year through performance.</p></details>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 data-aos="fade-up">Request Your Setup</h2>
+        <p style="text-align: center; color: var(--text-dim); margin-bottom: 40px;">Tell us what you want automated — we’ll design the right setup and send a custom quote.</p>
+        
+        <form class="lead-form" action="https://formspree.io/f/myzralao" method="POST" data-aos="zoom-in">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <input name="name" placeholder="Full Name" required style="padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none;">
+                <input name="phone" placeholder="Phone *" required style="padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none;">
+                <input name="email" type="email" placeholder="Business Email *" required style="padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none;">
+                <input name="industry" placeholder="Industry" required style="padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none;">
+                <input type="hidden" name="Estimated Monthly Revenue Recovered" id="hiddenRevenue">
+            </div>
+            <div style="margin-top:20px; font-size:12px; color:var(--text-dim)">
+                <label style="display:flex; gap:10px; margin-bottom:10px;"><input type="checkbox" required> I agree to receive texts. Reply STOP to opt out.</label>
+                <label style="display:flex; gap:10px;"><input type="checkbox" required> I agree to marketing terms.</label>
+            </div>
+            <button class="btn-submit">Request my offer</button>
+        </form>
+    </section>
+
+    <footer>
+        <div class="footer-brand">
+            <h2 style="text-align:left; font-size:24px">DIGIWERKS</h2>
+            <p>Intelligent sales systems for the modern service business.</p>
+        </div>
+        <div class="footer-links">
+            <h4 style="margin-bottom:15px; font-size:14px">Solutions</h4>
+            <a href="#" style="display:block; color:var(--text-dim); text-decoration:none; margin-bottom:10px">AI Voice</a>
+            <a href="#" style="display:block; color:var(--text-dim); text-decoration:none">SMS Automation</a>
+        </div>
+        <div class="footer-links">
+            <h4 style="margin-bottom:15px; font-size:14px">Company</h4>
+            <a href="privacy.html" style="display:block; color:var(--text-dim); text-decoration:none; margin-bottom:10px">Privacy Policy</a>
+            <a href="terms.html" style="display:block; color:var(--text-dim); text-decoration:none">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // --- NEW MOBILE MENU SCRIPT ---
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        const links = document.querySelectorAll('.nav-links a');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // --- CALCULATOR SCRIPT ---
+        const inputs = document.querySelectorAll('#avgValue,#missedCalls,#closeRate,#monthlyCost');
+        inputs.forEach(i => i.addEventListener('input', calc));
+
+        function calc() {
+            const v = +document.getElementById('avgValue').value;
+            const m = +document.getElementById('missedCalls').value;
+            const c = +document.getElementById('closeRate').value / 100;
+            const cost = +document.getElementById('monthlyCost').value;
+
+            if(!v || !m || !c) {
+                document.getElementById('calcResult').innerHTML = `<p style="color: var(--text-dim)">Enter your details to calculate ROI</p>`;
+                return;
+            }
+
+            const lost = v * m * c * 4.33; 
+            const roi = cost > 0 ? ((lost - cost) / cost) * 100 : 0;
+
+            document.getElementById('calcResult').innerHTML = `
+                <div style="width: 100%">
+                    <div style="font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px;">Monthly Revenue Recovered</div>
+                    <div style="font-size: 54px; font-weight: 700; margin: 15px 0; font-family: 'Space Grotesk', sans-serif; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$${lost.toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
+                    <div style="display: inline-block; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); padding: 8px 20px; border-radius: 999px; font-weight: 700;">
+                        ${roi.toFixed(0)}% ROI
+                    </div>
+                </div>
+            `;
+            document.getElementById('hiddenRevenue').value = `$${lost.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
