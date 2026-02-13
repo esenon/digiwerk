@@ -671,12 +671,22 @@
         </div>
     </section>
 
-    <!-- Final Contact -->
-    <section id="contact">
-        <h2 data-aos="fade-up">Request Your Setup</h2>
-        <p style="text-align: center; color: var(--text-dim); margin-bottom: 40px;">Tell us what you want automated — we’ll design the right setup and send a custom quote.</p>
-    
-        <div class="max-w-2xl mx-auto">
+    <section id="contact" class="py-40 px-6 md:px-12 lg:px-24 relative overflow-hidden">
+    <div class="orb orb-1 opacity-20"></div>
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20">
+        <div>
+            <h2 class="text-6xl md:text-8xl font-black mb-8 tracking-tighter">Ready to<br>automate?</h2>
+            <p class="text-xl text-gray-400 mb-12 font-light">Stop losing jobs to the "No Answer" void. Start scaling with engineered precision.</p>
+            
+            <div class="space-y-6">
+                <div class="flex items-center space-x-4"></div>
+                <div class="flex items-center space-x-4"></div>
+            </div>
+        </div>
+
+        <div class="glass-card p-10 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent pointer-events-none"></div>
+            
             <form id="contact-form" action="https://formspree.io/f/myzralao" method="POST" class="space-y-8 relative z-10">
                 <div class="grid grid-cols-2 gap-8">
                     <div class="space-y-2">
@@ -701,6 +711,16 @@
                         <option class="bg-black" value="$500k+">$500k+</option>
                     </select>
                 </div>
+
+                <input type="hidden" name="estimated_revenue_recovery" id="hiddenRevenue">
+
+                <button type="submit" class="w-full py-6 bg-white text-black font-black uppercase tracking-[0.3em] text-[10px] hover:invert transition-all">
+                    Request Growth Audit
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
                 
                 <input type="hidden" name="estimated_revenue_recovery" id="hiddenRevenue">
     
