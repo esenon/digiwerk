@@ -3,397 +3,893 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digiwerks | Intelligent Systems</title>
-    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+    <title>Digi Werks | Intelligent Growth Systems for Home Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #030307;
-            --text-white: #ffffff;
-            --text-dim: rgba(255, 255, 255, 0.65);
-            --accent-blue: #3b82f6;
-            --accent-purple: #9b51e0;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --gradient-main: linear-gradient(90deg, #9b51e0 0%, #3b82f6 40%, #d946ef 80%);
+            --bg: #050505;
+            --text: #ffffff;
+            --accent-purple: #9d50bb;
+            --accent-pink: #eb3e7e;
+            --accent-blue: #007aff;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            background-color: var(--bg);
             font-family: 'Inter', sans-serif;
-            color: var(--text-white);
+            background-color: var(--bg);
+            color: var(--text);
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
         }
 
-        /* --- NAVIGATION & MOBILE MENU --- */
-        nav {
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            letter-spacing: -0.03em;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* --- Animations --- */
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -20px) scale(1.05); }
+            100% { transform: translate(-20px, 40px) scale(1); }
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes scan {
+            0% { top: -100%; }
+            100% { top: 100%; }
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- Layout Elements --- */
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
+        }
+
+        .orb {
             position: absolute;
-            top: 0;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(157, 80, 187, 0.25) 0%, transparent 70%);
+            top: -200px;
+            right: -100px;
+            animation: float 25s infinite alternate;
+        }
+
+        .orb-2 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 122, 255, 0.15) 0%, transparent 70%);
+            bottom: 20%;
+            left: -100px;
+            animation: float 20s infinite alternate-reverse;
+        }
+
+        /* --- Components --- */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-8px);
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(24px);
+            background: rgba(5, 5, 5, 0.7);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff 40%, rgba(255, 255, 255, 0.4) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .accent-gradient {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+        }
+
+        .marquee-content {
+            display: flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        /* Lead Calculator Styles */
+        input[type="range"] {
+            -webkit-appearance: none;
             width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 50px 7%;
-            z-index: 100;
+            background: transparent;
         }
-        .logo-container {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: var(--text-white);
-            font-size: 15px; 
-            font-weight: 600; 
-            letter-spacing: 1px; 
-            text-transform: uppercase;
-            z-index: 1001; /* Stay above mobile menu */
+        input[type="range"]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
         }
-        .logo-image { height: 26px; width: auto; margin-right: 12px; filter: brightness(0) invert(1); }
-        
-        .nav-links { display: flex; gap: 35px; align-items: center; }
-        .nav-links a { color: var(--text-white); text-decoration: none; font-size: 14px; opacity: 0.9; transition: opacity 0.3s; }
-        .nav-links a:hover { opacity: 1; color: var(--accent-blue); }
-
-        /* Mobile Toggle Button */
-        .mobile-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            background: #fff;
+            border-radius: 50%;
+            margin-top: -7px;
             cursor: pointer;
-            z-index: 1001;
-            background: none;
-            border: none;
-        }
-        .mobile-toggle span {
-            width: 30px;
-            height: 2px;
-            background: var(--text-white);
-            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
-        /* Responsive Nav Logic */
-        @media (max-width: 992px) {
-            .mobile-toggle { display: flex; }
-            
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%; /* Hidden by default */
-                width: 80%;
-                max-width: 400px;
-                height: 100vh;
-                background: rgba(3, 3, 7, 0.98);
-                backdrop-filter: blur(20px);
-                border-left: 1px solid var(--glass-border);
-                flex-direction: column;
-                justify-content: center;
-                gap: 40px;
-                padding: 100px 40px;
-                transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            }
-
-            .nav-links.active { right: 0; }
-            .nav-links a { font-size: 24px; font-family: 'Space Grotesk', sans-serif; }
-
-            /* Hamburger to X Animation */
-            .mobile-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-            .mobile-toggle.active span:nth-child(2) { opacity: 0; }
-            .mobile-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
         }
 
-        /* --- REST OF STYLES --- */
-        .grid-overlay {
-            position: fixed;
-            inset: 0;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 80px 80px; z-index: 0; pointer-events: none;
+        .step-number {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            color: transparent;
+            font-size: 8rem;
+            line-height: 1;
         }
 
-        .hero { height: 100vh; display: flex; align-items: center; padding-left: 10%; position: relative; }
-        .content { position: relative; z-index: 10; max-width: 900px; margin-top: 100px; animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 72px; font-weight: 700; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 30px; }
-        .gradient-text { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .white-text { display: block; }
-        p.sub-hero { font-size: 19px; line-height: 1.5; color: var(--text-dim); max-width: 620px; font-weight: 400; margin-bottom: 40px; }
-        .badges { display: flex; gap: 12px; flex-wrap: wrap; }
-        .badges span { background: var(--glass); border: 1px solid var(--glass-border); padding: 8px 16px; border-radius: 999px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        .btn-main { display: inline-block; background: #fff; color: #000; padding: 18px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; margin-top: 30px; transition: transform 0.2s; }
-        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2); }
+        /* Pattern Interrupt Visualizer */
+        .interrupt-box {
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+            background: #111;
+            border-radius: 16px;
+        }
+        .interrupt-line {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: rgba(255,255,255,0.05);
+        }
+        .glitch-bar {
+            position: absolute;
+            height: 40px;
+            background: var(--accent-pink);
+            opacity: 0.3;
+            width: 100%;
+            left: 0;
+            animation: scan 4s linear infinite;
+        }
 
-        .sphere-container { position: absolute; right: -12%; top: 48%; transform: translateY(-50%); width: 900px; height: 900px; pointer-events: none; }
-        .sphere-visual { width: 100%; height: 100%; border-radius: 50%; background: #030307; position: relative; filter: url(#liquid-distort); overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08); }
-        .liquid-core { position: absolute; inset: -50%; background: conic-gradient(from 180deg at 50% 50%, #2e5bff, #a855f7, #ec4899, #f59e0b, #2e5bff); filter: blur(60px) saturate(1.8); animation: rotateFlow 15s infinite linear; opacity: 0.8; }
-        .liquid-core::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 20%, #030307 70%); }
-        .sphere-visual::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, transparent 50%); box-shadow: inset -20px -20px 80px rgba(0,0,0,0.9); z-index: 5; }
+        /* Feature Tabs */
+        .tab-btn.active {
+            background: white;
+            color: black;
+        }
 
-        section { padding: 120px 10%; position: relative; z-index: 10; }
-        h2 { font-family: 'Space Grotesk', sans-serif; font-size: 48px; margin-bottom: 20px; text-align: center; }
-        .section-sub { text-align: center; color: var(--text-dim); margin-bottom: 60px; font-size: 18px; }
-
-        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(280px, auto); gap: 20px; }
-        .bento-card { background: var(--glass); border: 1px solid var(--glass-border); padding: 40px; border-radius: 24px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; justify-content: flex-end; backdrop-filter: blur(5px); position: relative; overflow: hidden; }
-        .bento-card:hover { border-color: var(--accent-blue); background: rgba(255,255,255,0.06); transform: translateY(-5px); }
-        .bento-card.large { grid-column: span 2; }
-        .bento-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 28px; margin-bottom: 12px; }
-        .bento-card p { color: var(--text-dim); line-height: 1.6; }
-        .icon-svg { width: 42px; height: 42px; stroke: var(--accent-blue); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; margin-bottom: auto; }
-
-        .process-container { display: flex; justify-content: space-between; gap: 40px; margin-top: 50px; }
-        .process-step { flex: 1; position: relative; padding: 40px 30px 30px; background: var(--glass); border-radius: 20px; border: 1px solid var(--glass-border); }
-        .step-number { position: absolute; top: -20px; left: 20px; width: 45px; height: 45px; background: var(--gradient-main); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-family: 'Space Grotesk', sans-serif; }
-
-        .calculator-wrapper { background: linear-gradient(180deg, var(--glass) 0%, transparent 100%); border: 1px solid var(--glass-border); border-radius: 32px; padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .calculator input { width: 100%; padding: 18px; margin-top: 8px; background: #000; border: 1px solid var(--glass-border); border-radius: 12px; color: #fff; font-size: 18px; outline: none; }
-        .calc-display { background: rgba(255,255,255,0.02); border-radius: 24px; padding: 40px; text-align: center; border: 1px dashed var(--glass-border); min-height: 180px; display: flex; align-items: center; justify-content: center; }
-
-        details { background: var(--glass); padding: 24px; border-radius: 16px; border: 1px solid var(--glass-border); margin-bottom: 16px; cursor: pointer; }
-        summary { font-weight: 700; font-size: 18px; font-family: 'Space Grotesk', sans-serif; list-style: none; display: flex; justify-content: space-between; }
-        summary::after { content: '+'; color: var(--accent-blue); }
-
-        .lead-form { background: rgba(255,255,255,0.02); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); padding: 50px; border-radius: 24px; }
-        .btn-submit { width: 100%; padding: 20px; background: var(--gradient-main); color: #fff; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 30px; font-size: 16px; transition: 0.3s; }
-        .btn-submit:hover { opacity: 0.9; transform: scale(1.01); }
-
-        footer { padding: 100px 10% 50px; border-top: 1px solid var(--glass-border); display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; }
-
-        @keyframes rotateFlow { from { transform: rotate(0deg) scale(1.2); } to { transform: rotate(360deg) scale(1.2); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        @media (max-width: 992px) {
-            .bento-grid, .calculator-wrapper, .process-container, footer { grid-template-columns: 1fr; flex-direction: column; }
-            .bento-card.large { grid-column: span 1; }
-            h1 { font-size: 52px; }
-            nav { padding: 30px 5%; }
-            .sphere-container { width: 600px; height: 600px; right: -20%; }
+        @media (max-width: 768px) {
+            .step-number { font-size: 4rem; }
         }
     </style>
 </head>
-<body>
+<body class="antialiased custom-scrollbar">
 
-    <div class="grid-overlay"></div>
+    <!-- Progress Bar -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 z-[100] transition-all duration-100" style="width: 0%"></div>
 
-    <svg style="position: absolute; width: 0; height: 0;">
-      <filter id="liquid-distort">
-        <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="4" seed="5" result="noise">
-          <animate attributeName="baseFrequency" values="0.012;0.02;0.012" dur="8s" repeatCount="indefinite" />
-        </feTurbulence>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="100" xChannelSelector="R" yChannelSelector="G" />
-      </filter>
-    </svg>
-
-    <nav>
-        <a href="#" class="logo-container">
-            <img src="digiwerkslogo.png" alt="Digiwerks" class="logo-image">
-            <span>Digiwerks</span>
-        </a>
-        
-        <button class="mobile-toggle" id="mobileToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
-        <div class="nav-links" id="navLinks">
-            <a href="#solutions">Solutions</a>
-            <a href="#how">Process</a>
-            <a href="#faq">FAQs</a>
-            <a href="#contact">Get a custom offer</a>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 nav-blur px-6 py-4 md:px-12 flex justify-between items-center">
+        <div class="flex items-center space-x-3 group cursor-pointer">
+            <div class="relative w-8 h-8 flex items-center justify-center">
+                <div class="absolute inset-0 border-2 border-white rounded-lg group-hover:rotate-45 transition-transform duration-500"></div>
+                <div class="w-2 h-2 bg-white rounded-full"></div>
+            </div>
+            <span class="font-bold text-xl tracking-tighter uppercase font-heading">Digi Werks</span>
         </div>
+        
+        <div class="hidden lg:flex items-center space-x-12">
+            <div class="flex space-x-8 text-[10px] font-bold uppercase tracking-[0.3em] opacity-60">
+                <a href="#systems" class="hover:opacity-100 transition-all hover:text-pink-500">Systems</a>
+                <a href="#logic" class="hover:opacity-100 transition-all hover:text-pink-500">The Logic</a>
+                <a href="#calculator" class="hover:opacity-100 transition-all hover:text-pink-500">ROI Calc</a>
+                <a href="#faq" class="hover:opacity-100 transition-all hover:text-pink-500">FAQ</a>
+            </div>
+            <a href="#contact" class="bg-white text-black px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:invert transition-all">
+                Audit My Business
+            </a>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="lg:hidden text-white" id="menu-btn">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
     </nav>
 
-    <section class="hero">
-        <div class="content">
-            <h1>
-                <span class="gradient-text">AI booking systems</span>
-                <span class="white-text">built for your workflow.</span>
-            </h1>
-            <p class="sub-hero">Digiwerks builds deeply customized AI sales systems that answer every lead, qualify real opportunities, overcome common objections, and book directly into your workflow — 24/7.</p>
-            
-            <div class="badges">
-                <span>24/7 answering</span>
-                <span>CRM-native</span>
-                <span>Local market trained</span>
-            </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black z-[40] flex flex-col justify-center items-center space-y-8 translate-x-full transition-transform duration-500 lg:hidden">
+        <a href="#systems" class="text-3xl font-bold uppercase">Systems</a>
+        <a href="#logic" class="text-3xl font-bold uppercase">Logic</a>
+        <a href="#calculator" class="text-3xl font-bold uppercase">ROI</a>
+        <a href="#contact" class="text-3xl font-bold uppercase text-pink-500">Contact</a>
+    </div>
 
-            <a href="#contact" class="btn-main">Get Started Today</a>
-        </div>
-
-        <div class="sphere-container">
-            <div class="sphere-visual">
-                <div class="liquid-core"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="solutions">
-        <h2 data-aos="fade-up">The Edge Your Business Needs</h2>
-        <p class="section-sub" data-aos="fade-up">Traditional chatbots fail because they don't know your business. We build systems that do.</p>
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-24 overflow-hidden">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="grid-bg absolute inset-0 z-[-2]"></div>
         
-        <div class="bento-grid">
-            <div class="bento-card large" data-aos="fade-right">
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM5 10a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V10zM9 13v3M15 13v3M8 8V6a4 4 0 0 1 8 0v2"></path></svg>
-                <h3>Local & Service-Specific</h3>
-                <p>Your AI understands the difference between a "quick fix" and a "major install," knows your service area boundaries, and qualifies leads based on your specific profit margins.</p>
+        <div class="max-w-5xl relative">
+            <div class="inline-flex items-center space-x-3 px-3 py-1 rounded-full border border-white/10 bg-white/5 mb-8 backdrop-blur-md">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-pink-500"></span>
+                </span>
+                <span class="text-[10px] font-bold uppercase tracking-[0.2em] opacity-80">Next-Gen Growth </span>
             </div>
-            <div class="bento-card" data-aos="fade-left">
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                <h3>Never miss a lead</h3>
-                <p>Every call, text, and form is handled instantly — ensuring you're always the first to respond to a prospect.</p>
-            </div>
-            <div class="bento-card" data-aos="fade-up">
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <h3>Books automatically</h3>
-                <p>Qualified jobs land directly in your calendar or dispatch system (ServiceTitan, Housecall Pro, etc.) with full context.</p>
-            </div>
-            <div class="bento-card large" data-aos="fade-up">
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                <h3>Advanced Objection Handling</h3>
-                <p>We train your system on your specific pricing logic and past sales conversations to overcome customer hesitation in real-time.</p>
-            </div>
-        </div>
-    </section>
 
-    <section id="how">
-        <h2 data-aos="fade-up">The Path to Automation</h2>
-        <div class="process-container">
-            <div class="process-step" data-aos="zoom-in" data-aos-delay="0">
-                <div class="step-number">01</div>
-                <h3 style="margin-bottom:10px;">Deep Dive</h3>
-                <p style="color:var(--text-dim)">We audit your current missed calls and map out your unique business logic and pricing rules.</p>
-            </div>
-            <div class="process-step" data-aos="zoom-in" data-aos-delay="100">
-                <div class="step-number">02</div>
-                <h3 style="margin-bottom:10px;">Neural Training</h3>
-                <p style="color:var(--text-dim)">We train your custom AI model on your successful sales conversations and industry-specific terminology.</p>
-            </div>
-            <div class="process-step" data-aos="zoom-in" data-aos-delay="200">
-                <div class="step-number">03</div>
-                <h3 style="margin-bottom:10px;">Integration</h3>
-                <p style="color:var(--text-dim)">The system goes live, connecting to your phone lines and CRM. We optimize daily based on real-world results.</p>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="calculator-wrapper" data-aos="fade-up">
-            <div class="calculator">
-                <h2 style="text-align: left; font-size: 36px;">Revenue Estimator</h2>
-                <div class="calc-inputs">
-                    <label style="display:block; margin-bottom:15px;">Average job value ($)<input id="avgValue" type="number" placeholder="e.g. 500"></label>
-                    <label style="display:block; margin-bottom:15px;">Missed leads per week<input id="missedCalls" type="number" placeholder="e.g. 10"></label>
-                    <label style="display:block; margin-bottom:15px;">Close rate (%)<input id="closeRate" type="number" placeholder="e.g. 25"></label>
-                    <label style="display:block; margin-bottom:15px;">Monthly service cost ($)<input id="monthlyCost" type="number" placeholder="e.g. 300"></label>
+            <h1 class="text-5xl md:text-8xl lg:text-9xl font-extrabold mb-6 leading-[0.85] tracking-tighter text-gradient">
+                Design for Infinite</span> Growth
+            </h1>
+            
+            <p class="text-lg md:text-2xl text-gray-400 max-w-2xl font-light leading-relaxed mb-12">
+                We bridge the gap between <span class="text-white font-medium">unreachable demand</span> and <span class="text-white font-medium">automated operations</span>. A unified ecosystem for those interested in exponentially growing their service.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-8">
+                <a href="#contact" class="group relative px-8 py-5 bg-white text-black font-bold uppercase tracking-widest text-xs rounded-sm overflow-hidden transition-all">
+                    <span class="relative z-10">Deploy Systems</span>
+                    <div class="absolute inset-0 bg-pink-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                </a>
+                
+              
+                    </div>
                 </div>
             </div>
-            <div class="calc-display" id="calcResult">
-                <p style="color: var(--text-dim)">Enter your details to calculate ROI</p>
+        </div>
+        
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-30">
+            <span class="text-[10px] uppercase tracking-widest mb-4">Discover</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- Logo Marquee -->
+    <div class="py-12 border-y border-white/5 bg-white/5 overflow-hidden">
+        <div class="marquee-content whitespace-nowrap">
+            <!-- Repeat logos for seamless scroll -->
+            <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Pest Control</span>
+            <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">HVAC Systems</span>
+            <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Roofing Pro</span>
+            <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Solar Growth</span>
+            <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Plumbing Elite</span>
+            <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Landscaping</span>
+            <!-- Second set -->
+            <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Pest Control</span>
+            <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">HVAC Systems</span>
+            <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Roofing Pro</span>
+            <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Solar Growth</span>
+        </div>
+    </div>
+
+    <!-- Value Proposition: Pattern Interruption vs. Passive Search -->
+    <section id="logic" class="py-32 px-6 md:px-12 lg:px-24">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
+            <div>
+                <span class="text-pink-500 font-bold text-xs uppercase tracking-widest mb-6 block">The Strategy Shift</span>
+                <h2 class="text-4xl md:text-6xl font-bold mb-8 tracking-tight leading-tight">Interrupt the scroll.<br>Stop the search.</h2>
+                <p class="text-gray-400 text-lg mb-10 leading-relaxed">
+                    Most companies rely on getting lucky on searches—waiting for someone to have a crisis and look them up. By then, you're competing on price. 
+                </p>
+                <p class="text-gray-400 text-lg mb-12 leading-relaxed font-semibold text-white">
+                    Digi Werks captures the demand <span class="underline decoration-pink-500 decoration-2">before</span> the search happens.
+                </p>
+                
+                <div class="space-y-8">
+                    <div class="flex gap-6">
+                        <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0">
+                            <svg class="w-6 h-6 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl mb-2">Psychological Priming</h4>
+                            <p class="text-gray-500 text-sm">We use data-backed creative to remind homeowners of a problem they've been procrastinating on (the leaky faucet, the overgrown yard).</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0">
+                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl mb-2">Omnipresence</h4>
+                            <p class="text-gray-500 text-sm">Your brand becomes the local authority because they see you everywhere—especially when they're desperate.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="interrupt-box border border-white/10 p-8 flex flex-col justify-center">
+                    <div class="glitch-bar"></div>
+                    <!-- Animated Lines mimicking a feed -->
+                    <div class="space-y-4 opacity-20">
+                        <div class="h-4 w-3/4 bg-white/20 rounded"></div>
+                        <div class="h-4 w-full bg-white/20 rounded"></div>
+                        <div class="h-40 w-full bg-white/10 rounded-xl"></div>
+                        <div class="h-4 w-1/2 bg-white/20 rounded"></div>
+                    </div>
+                    
+                    <!-- The "Interrupt" Ad Overlay -->
+                    <div class="absolute inset-x-8 inset-y-16 bg-white rounded-2xl p-6 shadow-2xl transform hover:scale-105 transition-transform">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-8 h-8 bg-black rounded-full"></div>
+                            <div class="flex flex-col">
+                                <span class="text-black text-[10px] font-bold">Your Local Service Pro</span>
+                                <span class="text-gray-400 text-[8px]">Sponsored</span>
+                            </div>
+                        </div>
+                        <div class="h-24 w-full bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
+                            <span class="text-black font-bold text-xs">High-Impact Creative</span>
+                        </div>
+                        <div class="h-2 w-full bg-gray-200 rounded mb-2"></div>
+                        <div class="h-2 w-2/3 bg-gray-200 rounded mb-6"></div>
+                        <div class="w-full py-2 bg-pink-500 text-white text-[10px] font-bold text-center rounded uppercase tracking-tighter">Get Quote Instantly</div>
+                    </div>
+                </div>
+                <div class="absolute -bottom-6 -right-6 p-6 glass-card border-pink-500/20 max-w-[200px]">
+                    <span class="text-2xl font-bold block">4.2x</span>
+                    <span class="text-[10px] text-gray-400 uppercase tracking-widest leading-tight">Higher Lead Quality than Search</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="faq">
-        <h2 data-aos="fade-up">Common questions</h2>
-        <div style="max-width: 800px; margin: 0 auto;">
-            <details data-aos="fade-up"><summary>Is this just a chatbot?</summary><p style="padding-top:15px; color:var(--text-dim)">No — this is a full sales and booking system across voice, text, and CRM. It's designed to perform complex sales logic, not just give canned answers.</p></details>
-            <details data-aos="fade-up"><summary>Can I keep my current number?</summary><p style="padding-top:15px; color:var(--text-dim)">Yes, we can port your existing business number to our platform or provision a new one for you.</p></details>
-            <details data-aos="fade-up"><summary>How fast can this go live?</summary><p style="padding-top:15px; color:var(--text-dim)">Typically 7-10 business days once we have completed the deep-dive and integrations are confirmed.</p></details>
-            <details data-aos="fade-up"><summary>Is there a contract?</summary><p style="padding-top:15px; color:var(--text-dim)">We operate on a year-to-year basis. We earn your business every year through performance.</p></details>
+    <!-- Interactive ROI Calculator -->
+    <section id="calculator" class="py-32 px-6 md:px-12 lg:px-24 bg-white text-black relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-20">
+                <div>
+                    <h2 class="text-5xl font-extrabold mb-8 tracking-tighter">The Revenue<br>Projection</h2>
+                    <p class="text-lg text-gray-600 mb-12">See how our integrated systems scale your specific numbers. Adjust the sliders to estimate your growth potential.</p>
+                    
+                    <div class="space-y-10">
+                        <div>
+                            <div class="flex justify-between mb-4">
+                                <label class="font-bold text-xs uppercase tracking-widest">Current Monthly Leads</label>
+                                <span class="font-mono font-bold" id="val-leads">50</span>
+                            </div>
+                            <input type="range" id="input-leads" min="10" max="500" value="50" class="w-full">
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-4">
+                                <label class="font-bold text-xs uppercase tracking-widest">Avg Ticket Price ($)</label>
+                                <span class="font-mono font-bold" id="val-ticket">1200</span>
+                            </div>
+                            <input type="range" id="input-ticket" min="200" max="5000" step="100" value="1200" class="w-full">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-4">
+                                <label class="font-bold text-xs uppercase tracking-widest">Lead Close Rate (%)</label>
+                                <span class="font-mono font-bold" id="val-close">20</span>
+                            </div>
+                            <input type="range" id="input-close" min="1" max="50" value="20" class="w-full">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-[40px] p-12 flex flex-col justify-center border border-gray-100">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-[0.3em] mb-4">Projected New Revenue</span>
+                    <div class="text-7xl md:text-8xl font-black mb-8 tracking-tighter">
+                        $<span id="total-revenue">0</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-10 italic">
+                        *Calculated using a 35% increase in lead volume and 15% better closing rates via AI automation.
+                    </p>
+                    <a href="#contact" class="w-full py-6 bg-black text-white text-center font-bold uppercase tracking-widest text-sm rounded-2xl hover:bg-gray-800 transition-colors">
+                        Lock In This Growth
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
+
+    <!-- Balanced Service Section (Two Ways to Work with Us) -->
+    <section id="systems" class="py-32 px-8 md:px-24 bg-white text-black">
+        <div class="max-w-7xl mx-auto">
+            <span class="text-xs font-bold tracking-[0.4em] uppercase opacity-40 mb-4 block">Focus Areas</span>
+            <h2 class="text-4xl md:text-5xl font-bold mb-20 tracking-tight">Two ways to scale your business</h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Meta Ads Pillar -->
+                <div class="p-10 md:p-16 rounded-3xl bg-[#f8f9ff] flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 mb-10 flex items-center justify-center">
+                            <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-6">Aggressive Client Acquisition</h3>
+                        <p class="text-gray-600 mb-10 leading-relaxed text-lg">
+                            We don't wait for your phone to ring. We use pattern-interrupting creative to place your service in front of your ideal demographic while they scroll. High-intent, proactive lead generation.
+                        </p>
+                        
+                        <div class="space-y-4 border-t border-gray-200 pt-8">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                <span class="text-sm font-semibold opacity-70">Hyper-Local Demographic Targeting</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                <span class="text-sm font-semibold opacity-70">Zero-Wait Lead Flow</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="mt-12 text-sm font-bold uppercase tracking-widest flex items-center group-hover:translate-x-2 transition-transform">
+                        Explore Meta Strategy <span class="ml-2">→</span>
+                    </button>
+                </div>
+
+                <!-- AI Receptionist Pillar -->
+                <div class="p-10 md:p-16 rounded-3xl bg-[#fff8fe] flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 mb-10 flex items-center justify-center">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-6">Autonomous Lead Retention</h3>
+                        <p class="text-gray-600 mb-10 leading-relaxed text-lg">
+                            Answering the phone shouldn't be your bottleneck. Our AI agents handle inquiries, qualify prospects, and book jobs directly into your calendar 24/7/365.
+                        </p>
+
+                        <div class="space-y-4 border-t border-gray-200 pt-8">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <span class="text-sm font-semibold opacity-70">Instant Response</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                <span class="text-sm font-semibold opacity-70">Automated Calendar Scheduling</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="mt-12 text-sm font-bold uppercase tracking-widest flex items-center group-hover:translate-x-2 transition-transform">
+                        Explore AI Reception <span class="ml-2">→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Deep Dive -->
+    <section id="systems" class="py-32 px-6 md:px-12 lg:px-24">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row justify-between items-end mb-24 gap-8">
+                <div class="max-w-2xl">
+                    <span class="text-xs font-bold tracking-[0.5em] uppercase opacity-40 mb-4 block">Engineered Outcomes</span>
+                    <h2 class="text-4xl md:text-6xl font-bold tracking-tighter">The Dual-Engine Core</h2>
+                </div>
+                <div class="flex gap-4">
+                    <button class="tab-btn px-6 py-2 rounded-full border border-white/20 text-[10px] font-bold uppercase tracking-widest transition-all active" onclick="switchTab('acquisition')">Acquisition</button>
+                    <button class="tab-btn px-6 py-2 rounded-full border border-white/20 text-[10px] font-bold uppercase tracking-widest transition-all" onclick="switchTab('retention')">Retention</button>
+                </div>
+            </div>
+
+            <div id="acquisition-content" class="grid lg:grid-cols-3 gap-8">
+                <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
+                    <div>
+                        <div class="text-pink-500 mb-6">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 uppercase">Hyper-Local Scaling</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8">
+                            We don't just blast ads. We geo-fence your specific service zones to ensure you aren't paying for leads 50 miles away from your trucks.
+                        </p>
+                    </div>
+                    <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
+                        <li>• Radius-Targeting</li>
+                        <li>• Competitor Geo-Conquest</li>
+                        <li>• Dynamic Local Creative</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
+                    <div>
+                        <div class="text-blue-500 mb-6">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 uppercase">Meta Funnel Logic</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8">
+                            Complex retargeting paths. If someone sees your ad and doesn't convert, they see a testimonial the next day, and an offer the day after.
+                        </p>
+                    </div>
+                    <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
+                        <li>• Multi-Step Retargeting</li>
+                        <li>• Video VSL Funnels</li>
+                        <li>• Instant Lead Forms</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
+                    <div>
+                        <div class="text-purple-500 mb-6">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 uppercase">Data Feedback</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8">
+                            We plug directly into your CRM to see which ads result in actual paid jobs, not just "leads," allowing us to optimize for profit, not impressions.
+                        </p>
+                    </div>
+                    <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
+                        <li>• CRM Integration</li>
+                        <li>• ROAS Tracking</li>
+                        <li>• Targeted and Specialized</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Content for Retention (Hidden by default) -->
+            <div id="retention-content" class="hidden grid lg:grid-cols-3 gap-8">
+                 <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
+                    <div>
+                        <div class="text-green-500 mb-6">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 uppercase">Instant AI Text</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8">
+                            When a lead comes in, our AI texts them within 3 seconds. Statistics show a 400% increase in conversion if you contact a lead within 5 minutes.
+                        </p>
+                    </div>
+                    <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
+                        <li>• Instant Messaging</li>
+                        <li>• Natural Language API</li>
+                        <li>• Lead Qualification</li>
+                    </ul>
+                </div>
+                <!-- Add more as needed... -->
+            </div>
+        </div>
+    </section>
+
+    <!-- The "How it Works" Visual Timeline -->
+    <section class="py-32 bg-zinc-950 overflow-hidden">
+        <div class="px-6 md:px-12 lg:px-24">
+            <h2 class="text-4xl md:text-7xl font-bold mb-32 tracking-tighter text-center">The Deployment Path</h2>
+            
+            <div class="space-y-40">
+                <!-- Step 1 -->
+                <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-32">
+                    <div class="step-number font-black shrink-0">01</div>
+                    <div class="max-w-xl">
+                        <h3 class="text-3xl font-bold mb-6 text-pink-500">Infrastructure Audit</h3>
+                        <p class="text-xl text-gray-400 font-light leading-relaxed">
+                            We analyze your current lead flow, booking process, and CRM health. We don't build on top of broken systems; we fix the foundation first.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12 lg:gap-32">
+                    <div class="step-number font-black shrink-0">02</div>
+                    <div class="max-w-xl">
+                        <h3 class="text-3xl font-bold mb-6 text-blue-500">Engine Ignition</h3>
+                        <p class="text-xl text-gray-400 font-light leading-relaxed">
+                            Creative assets go live. We launch the "Pattern Interruption" campaign and activate the AI receptionist to sit at the edge of your funnel.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-32">
+                    <div class="step-number font-black shrink-0">03</div>
+                    <div class="max-w-xl">
+                        <h3 class="text-3xl font-bold mb-6 text-purple-500">The Feedback Loop</h3>
+                        <p class="text-xl text-gray-400 font-light leading-relaxed">
+                            Promised results. We use what works, and double down on the high-ticket jobs. Your revenue becomes a predictable line going up and to the right.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-32 px-6 md:px-12 lg:px-24">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-20 text-center tracking-tight">Technical Clarifications</h2>
+            
+            <div class="space-y-4">
+                <div class="glass-card p-6 cursor-pointer group overflow-hidden" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold">Is this an average AI receptionist?</h4>
+                        <span class="text-xl transition-transform group-open:rotate-45">+</span>
+                    </div>
+                    <div class="faq-answer hidden pt-6 text-gray-400 text-sm">
+                        No — this is a full sales and booking system across voice, text, and CRM. It's designed to perform complex sales logic, not just give canned answers.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 cursor-pointer group" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold">What's the difference between this and Google Ads?</h4>
+                        <span class="text-xl transition-transform">+</span>
+                    </div>
+                    <div class="faq-answer hidden pt-6 text-gray-400 text-sm">
+                        Google Ads is "Search Intent"—you're fighting for people already looking. Meta Ads (our specialty) is "Disruption Intent"—we create the demand. This often results in a 40-60% lower cost per lead.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 cursor-pointer group" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold">Do I need to manage the AI myself?</h4>
+                        <span class="text-xl transition-transform">+</span>
+                    </div>
+                    <div class="faq-answer hidden pt-6 text-gray-400 text-sm">
+                        Zero management required. We handle all technical implementation, API connections, and training of the AI model on your specific service offerings and pricing.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Contact -->
     <section id="contact">
         <h2 data-aos="fade-up">Request Your Setup</h2>
         <p style="text-align: center; color: var(--text-dim); margin-bottom: 40px;">Tell us what you want automated — we’ll design the right setup and send a custom quote.</p>
-        
-        <form class="lead-form" action="https://formspree.io/f/myzralao" method="POST" data-aos="zoom-in">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <input name="name" placeholder="Full Name" required style="padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none;">
-                <input name="phone" placeholder="Phone *" required style="padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none;">
-                <input name="email" type="email" placeholder="Business Email *" required style="padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none;">
-                <input name="industry" placeholder="Industry" required style="padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; outline: none;">
-                <input type="hidden" name="Estimated Monthly Revenue Recovered" id="hiddenRevenue">
-            </div>
-            <div style="margin-top:20px; font-size:12px; color:var(--text-dim)">
-                <label style="display:flex; gap:10px; margin-bottom:10px;"><input type="checkbox" required> I agree to receive texts. Reply STOP to opt out.</label>
-                <label style="display:flex; gap:10px;"><input type="checkbox" required> I agree to marketing terms.</label>
-            </div>
-            <button class="btn-submit">Request my offer</button>
-        </form>
+    
+        <div class="max-w-2xl mx-auto">
+            <form id="contact-form" action="https://formspree.io/f/myzralao" method="POST" class="space-y-8 relative z-10">
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">First Name</label>
+                        <input type="text" name="first_name" class="w-full bg-transparent border-b border-white/20 focus:border-white outline-none py-2 transition-all" required>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">Business Name</label>
+                        <input type="text" name="business_name" class="w-full bg-transparent border-b border-white/20 focus:border-white outline-none py-2 transition-all" required>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">Email Address</label>
+                    <input type="email" name="email" class="w-full bg-transparent border-b border-white/20 focus:border-white outline-none py-2 transition-all" required>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">Monthly Revenue</label>
+                    <select name="monthly_revenue" class="w-full bg-transparent border-b border-white/20 focus:border-white outline-none py-2 transition-all appearance-none cursor-pointer">
+                        <option class="bg-black" value="$0 - $25k">$0 - $25k</option>
+                        <option class="bg-black" value="$25k - $100k">$25k - $100k</option>
+                        <option class="bg-black" value="$100k - $500k">$100k - $500k</option>
+                        <option class="bg-black" value="$500k+">$500k+</option>
+                    </select>
+                </div>
+                
+                <input type="hidden" name="estimated_revenue_recovery" id="hiddenRevenue">
+    
+                <button type="submit" class="w-full py-6 bg-white text-black font-black uppercase tracking-[0.3em] text-[10px] hover:invert transition-all">
+                    Request Growth Audit
+                </button>
+            </form>
+        </div>
     </section>
 
-    <footer>
-        <div class="footer-brand">
-            <h2 style="text-align:left; font-size:24px">DIGIWERKS</h2>
-            <p>Intelligent sales systems for the modern service business.</p>
+    <!-- Modern Footer -->
+    <footer class="bg-black pt-40 pb-12 px-6 md:px-12 lg:px-24 border-t border-white/5 relative overflow-hidden">
+        <div class="grid lg:grid-cols-4 gap-20 mb-32">
+            <div class="lg:col-span-2">
+                <div class="flex items-center space-x-3 mb-12">
+                    <div class="w-10 h-10 border-2 border-white rounded-lg"></div>
+                    <span class="font-bold text-3xl tracking-tighter uppercase font-heading">Digi Werks</span>
+                </div>
+                <h3 class="text-4xl font-light text-gray-400 max-w-md leading-tight mb-12">
+                    We build the systems that build the businesses.
+                </h3>
+
+            </div>
+
+            <div>
+                <h5 class="text-[10px] font-bold uppercase tracking-widest opacity-30 mb-8">Navigation</h5>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li><a href="#systems" class="hover:opacity-100 transition-all hover:text-pink-500">Systems</a></li>
+                    <li><a href="#logic" class="hover:opacity-100 transition-all hover:text-pink-500">The Logic</a></li>
+                    <li><a href="#calculator" class="hover:opacity-100 transition-all hover:text-pink-500">ROI Calc</a></li>
+                    <li> <a href="#faq" class="hover:opacity-100 transition-all hover:text-pink-500">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="text-[10px] font-bold uppercase tracking-widest opacity-30 mb-8">Contact</h5>
+                <ul class="space-y-4 text-sm font-medium text-gray-500">
+                    <li>digiwerksai@digiwerksai.com</li>
+                    <li>+1 (309) 507-6816</li>
+                    <li>Geneseo, IL</li>
+                </ul>
+            </div>
         </div>
-        <div class="footer-links">
-            <h4 style="margin-bottom:15px; font-size:14px">Solutions</h4>
-            <a href="#" style="display:block; color:var(--text-dim); text-decoration:none; margin-bottom:10px">AI Voice</a>
-            <a href="#" style="display:block; color:var(--text-dim); text-decoration:none">SMS Automation</a>
-        </div>
-        <div class="footer-links">
-            <h4 style="margin-bottom:15px; font-size:14px">Company</h4>
-            <a href="privacy.html" style="display:block; color:var(--text-dim); text-decoration:none; margin-bottom:10px">Privacy Policy</a>
-            <a href="terms.html" style="display:block; color:var(--text-dim); text-decoration:none">Terms of Service</a>
+
+        <div class="flex flex-col md:flex-row justify-between items-center text-[8px] font-bold uppercase tracking-widest opacity-20">
+            <span>© 2026 Digi Werks, Inc. All rights reserved.</span>
+            <div class="flex space-x-12 mt-6 md:mt-0">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+            </div>
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Logic Script -->
     <script>
-        AOS.init({ duration: 1000, once: true });
+        // Scroll Progress
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+        };
 
-        // --- NEW MOBILE MENU SCRIPT ---
-        const mobileToggle = document.getElementById('mobileToggle');
-        const navLinks = document.getElementById('navLinks');
-        const links = document.querySelectorAll('.nav-links a');
+        // ROI Calculator Logic
+        const leadsIn = document.getElementById('input-leads');
+        const ticketIn = document.getElementById('input-ticket');
+        const closeIn = document.getElementById('input-close');
+        
+        const leadsVal = document.getElementById('val-leads');
+        const ticketVal = document.getElementById('val-ticket');
+        const closeVal = document.getElementById('val-close');
+        const totalRev = document.getElementById('total-revenue');
 
-        mobileToggle.addEventListener('click', () => {
-            mobileToggle.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
+        function updateCalc() {
+            const l = parseInt(leadsIn.value);
+            const t = parseInt(ticketIn.value);
+            const c = parseInt(closeIn.value) / 100;
 
-        // Close menu when a link is clicked
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileToggle.classList.remove('active');
-                navLinks.classList.remove('active');
-            });
-        });
+            leadsVal.innerText = l;
+            ticketVal.innerText = t;
+            closeVal.innerText = (c * 100).toFixed(0);
 
-        // --- CALCULATOR SCRIPT ---
-        const inputs = document.querySelectorAll('#avgValue,#missedCalls,#closeRate,#monthlyCost');
-        inputs.forEach(i => i.addEventListener('input', calc));
-
-        function calc() {
-            const v = +document.getElementById('avgValue').value;
-            const m = +document.getElementById('missedCalls').value;
-            const c = +document.getElementById('closeRate').value / 100;
-            const cost = +document.getElementById('monthlyCost').value;
-
-            if(!v || !m || !c) {
-                document.getElementById('calcResult').innerHTML = `<p style="color: var(--text-dim)">Enter your details to calculate ROI</p>`;
-                return;
-            }
-
-            const lost = v * m * c * 4.33; 
-            const roi = cost > 0 ? ((lost - cost) / cost) * 100 : 0;
-
-            document.getElementById('calcResult').innerHTML = `
-                <div style="width: 100%">
-                    <div style="font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px;">Monthly Revenue Recovered</div>
-                    <div style="font-size: 54px; font-weight: 700; margin: 15px 0; font-family: 'Space Grotesk', sans-serif; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$${lost.toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
-                    <div style="display: inline-block; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); padding: 8px 20px; border-radius: 999px; font-weight: 700;">
-                        ${roi.toFixed(0)}% ROI
-                    </div>
-                </div>
-            `;
-            document.getElementById('hiddenRevenue').value = `$${lost.toFixed(2)}`;
+            // Calculation Logic:
+            // 1. We increase leads by 35%
+            // 2. We increase closing rate by 15% (relative)
+            const newLeads = l * 1.35;
+            const newClose = c * 1.15;
+            const revenue = (newLeads * newClose * t);
+            
+            totalRev.innerText = Math.round(revenue).toLocaleString();
         }
+
+        [leadsIn, ticketIn, closeIn].forEach(el => el.addEventListener('input', updateCalc));
+        updateCalc();
+
+        // Tab Switch Logic
+        function switchTab(tab) {
+            const acq = document.getElementById('acquisition-content');
+            const ret = document.getElementById('retention-content');
+            const btns = document.querySelectorAll('.tab-btn');
+
+            btns.forEach(b => b.classList.remove('active'));
+
+            if(tab === 'acquisition') {
+                acq.classList.remove('hidden');
+                acq.classList.add('grid');
+                ret.classList.add('hidden');
+                btns[0].classList.add('active');
+            } else {
+                ret.classList.remove('hidden');
+                ret.classList.add('grid');
+                acq.classList.add('hidden');
+                btns[1].classList.add('active');
+            }
+        }
+
+        // FAQ Toggle
+        function toggleFaq(el) {
+            const answer = el.querySelector('.faq-answer');
+            const symbol = el.querySelector('span');
+            
+            if(answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                symbol.style.transform = 'rotate(45deg)';
+            } else {
+                answer.classList.add('hidden');
+                symbol.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Mobile Menu
+        const menuBtn = document.getElementById('menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        menuBtn.onclick = () => {
+            menu.classList.toggle('translate-x-full');
+        };
+        menu.onclick = () => {
+            menu.classList.add('translate-x-full');
+        };
+
+       // Form Submit Logic
+document.getElementById('contact-form').onsubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('button');
+    const originalText = btn.innerText;
+
+    // 1. Capture the ROI from your calculator before sending
+    const roiDisplay = document.getElementById('calcResult');
+    const hiddenInput = document.getElementById('hiddenRevenue');
+    if (roiDisplay && hiddenInput) {
+        // This grabs the dollar amount text from your calculator display
+        hiddenInput.value = roiDisplay.innerText.trim();
+    }
+
+    // 2. Visual feedback for the user
+    btn.innerText = "SENDING...";
+    btn.disabled = true;
+
+    try {
+        // 3. Send the data to Formspree
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+            // Success styling
+            btn.innerText = "Audit Requested Successfully";
+            btn.style.backgroundColor = "#10b981";
+            btn.style.color = "white";
+            btn.style.filter = "none"; 
+            form.reset();
+        } else {
+            // Error handling
+            const data = await response.json();
+            if (data.errors) {
+                btn.innerText = "Error: " + data.errors.map(error => error.message).join(", ");
+            } else {
+                btn.innerText = "Submission Error";
+            }
+        }
+    } catch (error) {
+        btn.innerText = "Connection Error";
+        console.error(error);
+    }
+};
     </script>
 </body>
 </html>
