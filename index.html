@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -303,7 +303,7 @@
             <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">HVAC Systems</span>
             <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Roofing Pro</span>
             <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Solar Growth</span>
-            <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Plumbing Elite</span>
+            <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Plumbing Business</span>
             <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Landscaping</span>
             <!-- Second set -->
             <span class="mx-12 text-xl font-bold opacity-20 uppercase tracking-[0.5em] font-heading">Pest Control</span>
@@ -385,55 +385,274 @@
     </section>
 
     <!-- Interactive ROI Calculator -->
-    <section id="calculator" class="py-32 px-6 md:px-12 lg:px-24 bg-white text-black relative">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-20">
-                <div>
-                    <h2 class="text-5xl font-extrabold mb-8 tracking-tighter">The Revenue<br>Projection</h2>
-                    <p class="text-lg text-gray-600 mb-12">See how our integrated systems scale your specific numbers. Adjust the sliders to estimate your growth potential.</p>
-                    
-                    <div class="space-y-10">
-                        <div>
-                            <div class="flex justify-between mb-4">
-                                <label class="font-bold text-xs uppercase tracking-widest">Current Monthly Leads</label>
-                                <span class="font-mono font-bold" id="val-leads">50</span>
-                            </div>
-                            <input type="range" id="input-leads" min="10" max="500" value="50" class="w-full">
-                        </div>
-                        
-                        <div>
-                            <div class="flex justify-between mb-4">
-                                <label class="font-bold text-xs uppercase tracking-widest">Avg Ticket Price ($)</label>
-                                <span class="font-mono font-bold" id="val-ticket">1200</span>
-                            </div>
-                            <input type="range" id="input-ticket" min="200" max="5000" step="100" value="1200" class="w-full">
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between mb-4">
-                                <label class="font-bold text-xs uppercase tracking-widest">Lead Close Rate (%)</label>
-                                <span class="font-mono font-bold" id="val-close">20</span>
-                            </div>
-                            <input type="range" id="input-close" min="1" max="50" value="20" class="w-full">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gray-50 rounded-[40px] p-12 flex flex-col justify-center border border-gray-100">
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-[0.3em] mb-4">Projected New Revenue</span>
-                    <div class="text-7xl md:text-8xl font-black mb-8 tracking-tighter">
-                        $<span id="total-revenue">0</span>
-                    </div>
-                    <p class="text-sm text-gray-500 mb-10 italic">
-                        *Calculated using a 35% increase in lead volume and 15% better closing rates via AI automation.
-                    </p>
-                    <a href="#contact" class="w-full py-6 bg-black text-white text-center font-bold uppercase tracking-widest text-sm rounded-2xl hover:bg-gray-800 transition-colors">
-                        Lock In This Growth
-                    </a>
-                </div>
+<section id="calculator" class="py-32 px-6 md:px-12 lg:px-24 bg-white text-black relative">
+    <div class="max-w-6xl mx-auto">
+  
+      <div class="grid lg:grid-cols-2 gap-20">
+  
+        <!-- Left: Sliders -->
+        <div>
+          <h2 class="text-5xl font-extrabold mb-8 tracking-tighter">The Revenue<br>Projection</h2>
+          <p class="text-lg text-gray-600 mb-12">See how our integrated systems scale your specific numbers. Adjust the sliders to estimate your growth potential.</p>
+  
+          <div class="space-y-8">
+  
+            <div>
+              <div class="flex justify-between mb-3">
+                <label class="font-bold text-xs uppercase tracking-widest text-gray-500">Monthly Leads</label>
+                <span class="font-mono font-bold" id="val-leads">50</span>
+              </div>
+              <input type="range" id="input-leads" min="10" max="500" step="1" value="50" class="w-full">
             </div>
+  
+            <div>
+              <div class="flex justify-between mb-3">
+                <label class="font-bold text-xs uppercase tracking-widest text-gray-500">Avg Ticket Price</label>
+                <span class="font-mono font-bold" id="val-ticket">$1,200</span>
+              </div>
+              <input type="range" id="input-ticket" min="200" max="10000" step="100" value="1200" class="w-full">
+            </div>
+  
+            <div>
+              <div class="flex justify-between mb-3">
+                <label class="font-bold text-xs uppercase tracking-widest text-gray-500">Lead Close Rate (%)</label>
+                <span class="font-mono font-bold" id="val-close">20%</span>
+              </div>
+              <input type="range" id="input-close" min="1" max="60" step="1" value="20" class="w-full">
+            </div>
+  
+            <div style="border-top: 1px solid #f0f0f0; padding-top: 2rem;">
+              <div class="flex justify-between mb-3">
+                <label class="font-bold text-xs uppercase tracking-widest text-gray-500">Monthly Ad Spend</label>
+                <span class="font-mono font-bold" id="val-spend">$2,000</span>
+              </div>
+              <input type="range" id="input-spend" min="0" max="20000" step="500" value="2000" class="w-full">
+            </div>
+  
+            <div>
+              <div class="flex justify-between mb-3">
+                <label class="font-bold text-xs uppercase tracking-widest text-gray-500">Client LTV (Months)</label>
+                <span class="font-mono font-bold" id="val-ltv">6 mo</span>
+              </div>
+              <input type="range" id="input-ltv" min="1" max="36" step="1" value="6" class="w-full">
+            </div>
+  
+            <div>
+              <div class="flex justify-between mb-3">
+                <label class="font-bold text-xs uppercase tracking-widest text-gray-500">Monthly Churn Rate (%)</label>
+                <span class="font-mono font-bold" id="val-churn">5%</span>
+              </div>
+              <input type="range" id="input-churn" min="1" max="30" step="1" value="5" class="w-full">
+            </div>
+  
+          </div>
         </div>
-    </section>
+  
+        <!-- Right: Results -->
+        <div class="flex flex-col gap-6">
+  
+          <!-- Revenue Card -->
+          <div class="bg-gray-50 rounded-[40px] p-12 border border-gray-100">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-[0.3em] mb-4 block">Projected New Revenue / Month</span>
+            <div class="text-7xl md:text-8xl font-black mb-2 tracking-tighter">
+              $<span id="total-revenue">0</span>
+            </div>
+            <p class="text-sm text-gray-400 font-mono mb-8">with AI automation layered in</p>
+  
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-white rounded-2xl p-4 border border-gray-100">
+                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">Boosted Leads</div>
+                <div class="text-2xl font-black" id="result-leads">—</div>
+              </div>
+              <div class="bg-white rounded-2xl p-4 border border-gray-100">
+                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">New Close Rate</div>
+                <div class="text-2xl font-black" id="result-close">—</div>
+              </div>
+              <div class="bg-white rounded-2xl p-4 border border-gray-100">
+                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">New Clients / Mo</div>
+                <div class="text-2xl font-black" id="result-clients">—</div>
+              </div>
+              <div class="bg-white rounded-2xl p-4 border border-gray-100">
+                <div class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">ROI on Ad Spend</div>
+                <div class="text-2xl font-black" id="result-roi">—</div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Chart Card -->
+          <div class="bg-gray-50 rounded-[40px] px-10 py-8 border border-gray-100">
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-xs font-bold uppercase tracking-widest text-gray-400">12-Month Trajectory</span>
+              <div class="flex gap-4">
+                <span class="text-xs font-mono text-gray-400 flex items-center gap-1"><span style="display:inline-block;width:10px;height:2px;background:#ccc;"></span> Baseline</span>
+                <span class="text-xs font-mono text-gray-400 flex items-center gap-1"><span style="display:inline-block;width:10px;height:2px;background:#111;"></span> With AI</span>
+              </div>
+            </div>
+            <div style="position:relative; width:100%; height:180px;">
+              <canvas id="roi-chart"></canvas>
+            </div>
+          </div>
+  
+          <!-- AI Insight Card -->
+          <div class="bg-gray-50 rounded-[40px] px-10 py-8 border border-gray-100">
+            <div class="flex items-center gap-2 mb-3">
+              <span id="insight-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#111;"></span>
+              <span class="text-xs font-bold uppercase tracking-widest text-gray-400">AI Insight</span>
+            </div>
+            <p class="text-sm text-gray-600 leading-relaxed" id="insight-text">Adjust the sliders to generate a personalized recommendation.</p>
+            <div id="insight-tags" class="flex flex-wrap gap-2 mt-3"></div>
+          </div>
+  
+          <!-- CTA -->
+          <a href="#contact" class="w-full py-6 bg-black text-white text-center font-bold uppercase tracking-widest text-sm rounded-2xl hover:bg-gray-800 transition-colors block">
+            Lock In This Growth
+          </a>
+  
+          <p class="text-xs text-gray-400 italic text-center px-4">
+            *Calculated using a 35% increase in lead volume and 15% better closing rates via AI automation.
+          </p>
+  
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script>
+  (function () {
+    var chart = null;
+  
+    function fmtMoney(n) {
+      return '$' + Math.round(n).toLocaleString();
+    }
+  
+    function calculate() {
+      var leads  = parseInt(document.getElementById('input-leads').value, 10);
+      var ticket = parseInt(document.getElementById('input-ticket').value, 10);
+      var close  = parseInt(document.getElementById('input-close').value, 10);
+      var spend  = parseInt(document.getElementById('input-spend').value, 10);
+      var ltv    = parseInt(document.getElementById('input-ltv').value, 10);
+      var churn  = parseInt(document.getElementById('input-churn').value, 10);
+  
+      document.getElementById('val-leads').textContent = leads;
+      document.getElementById('val-ticket').textContent = fmtMoney(ticket);
+      document.getElementById('val-close').textContent = close + '%';
+      document.getElementById('val-spend').textContent = fmtMoney(spend);
+      document.getElementById('val-ltv').textContent = ltv + ' mo';
+      document.getElementById('val-churn').textContent = churn + '%';
+  
+      var boostedLeads = Math.round(leads * 1.35);
+      var newCloseRate = Math.min(60, Math.round(close * 1.15));
+      var baseClients  = Math.round(leads * close / 100);
+      var newClients   = Math.round(boostedLeads * newCloseRate / 100);
+      var addedClients = newClients - baseClients;
+      var addedRevenue = addedClients * ticket;
+      var roi          = spend > 0 ? Math.round((addedRevenue / spend) * 100) : null;
+  
+      document.getElementById('total-revenue').textContent = Math.round(addedRevenue).toLocaleString();
+      document.getElementById('result-leads').textContent  = boostedLeads;
+      document.getElementById('result-close').textContent  = newCloseRate + '%';
+      document.getElementById('result-clients').textContent = '+' + addedClients;
+      document.getElementById('result-roi').textContent    = roi !== null ? roi + '%' : '—';
+  
+      var months = [], baseline = [], projected = [];
+      for (var i = 0; i < 12; i++) {
+        months.push('Mo ' + (i + 1));
+        var churnDecay = Math.pow(1 - churn / 100, i);
+        baseline.push(Math.round(baseClients * ticket * churnDecay));
+        var rampUp = Math.min(1, (i + 1) / 3);
+        projected.push(Math.round((baseClients + addedClients * rampUp) * ticket * Math.pow(1 - (churn * 0.6) / 100, i)));
+      }
+  
+      if (chart) {
+        chart.data.labels = months;
+        chart.data.datasets[0].data = baseline;
+        chart.data.datasets[1].data = projected;
+        chart.update();
+      }
+  
+      updateInsight(leads, close, churn, ltv, spend, addedRevenue, roi, addedClients);
+    }
+  
+    function updateInsight(leads, close, churn, ltv, spend, addedRev, roi, addedClients) {
+      var text, tags;
+      if (close < 15) {
+        text = 'Your close rate is below average. AI-driven follow-up sequences typically push rates from ' + close + '% toward 20–28%. This is likely your highest-leverage opportunity.';
+        tags = ['Low close rate', 'Follow-up automation'];
+      } else if (churn > 12) {
+        text = 'A ' + churn + '% monthly churn rate is quietly eroding your gains. Cutting churn in half could outperform acquiring new leads. Consider AI re-engagement flows.';
+        tags = ['High churn risk', 'Retention automation'];
+      } else if (leads < 40) {
+        text = 'With a solid close rate, your primary constraint is lead volume. Boosting from ' + leads + ' to ' + Math.round(leads * 1.35) + ' leads monthly unlocks ' + addedRev.toLocaleString('en-US', {style:'currency', currency:'USD', maximumFractionDigits:0}) + ' in new revenue.';
+        tags = ['Volume constrained', 'Top-of-funnel focus'];
+      } else if (ltv >= 12) {
+        text = 'With a ' + ltv + '-month LTV, each new client carries serious lifetime value. Retention-focused automation pays off especially well in your model.';
+        tags = ['High LTV profile', 'Retention leverage'];
+      } else if (roi !== null && roi > 300) {
+        text = 'Your model shows a ' + roi + '% ROI when AI automation is layered onto your current ad spend — a strong signal to scale carefully while maintaining your close rate.';
+        tags = ['Strong ROI signal', 'Scale-ready'];
+      } else {
+        text = 'Your fundamentals are healthy. AI automation is projected to add ' + addedClients + ' clients per month through better follow-up and lead nurturing — compounding over time.';
+        tags = ['Solid baseline', 'Compounding upside'];
+      }
+  
+      document.getElementById('insight-text').textContent = text;
+      var tagsEl = document.getElementById('insight-tags');
+      tagsEl.innerHTML = '';
+      for (var i = 0; i < tags.length; i++) {
+        var span = document.createElement('span');
+        span.textContent = tags[i];
+        span.style.cssText = 'font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 12px;border-radius:999px;background:#e5e7eb;color:#555;';
+        tagsEl.appendChild(span);
+      }
+    }
+  
+    function initChart() {
+      var ctx = document.getElementById('roi-chart').getContext('2d');
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: [],
+          datasets: [
+            { label: 'Baseline', data: [], borderColor: '#ccc', borderWidth: 1.5, pointRadius: 0, fill: false, tension: 0.4 },
+            { label: 'With AI',  data: [], borderColor: '#111', borderWidth: 2.5, pointRadius: 0, fill: { target: 0, above: 'rgba(0,0,0,0.04)' }, tension: 0.4 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) { return ctx.dataset.label + ': $' + Math.round(ctx.raw).toLocaleString(); }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { font: { size: 10 }, color: '#bbb' } },
+            y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { size: 10 }, color: '#bbb', callback: function(v) { return '$' + (v/1000).toFixed(0) + 'k'; } } }
+          }
+        }
+      });
+    }
+  
+    function init() {
+      var ids = ['input-leads','input-ticket','input-close','input-spend','input-ltv','input-churn'];
+      for (var i = 0; i < ids.length; i++) {
+        document.getElementById(ids[i]).addEventListener('input', calculate);
+      }
+      initChart();
+      calculate();
+    }
+  
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+  </script>
 
 
     <!-- Balanced Service Section (Two Ways to Work with Us) -->
@@ -501,94 +720,229 @@
     </section>
 
     <!-- Services Deep Dive -->
-    <section id="systems" class="py-32 px-6 md:px-12 lg:px-24">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col lg:flex-row justify-between items-end mb-24 gap-8">
-                <div class="max-w-2xl">
-                    <span class="text-xs font-bold tracking-[0.5em] uppercase opacity-40 mb-4 block">Engineered Outcomes</span>
-                    <h2 class="text-4xl md:text-6xl font-bold tracking-tighter">The Dual-Engine Core</h2>
-                </div>
-                <div class="flex gap-4">
-                    <button class="tab-btn px-6 py-2 rounded-full border border-white/20 text-[10px] font-bold uppercase tracking-widest transition-all active" onclick="switchTab('acquisition')">Acquisition</button>
-                    <button class="tab-btn px-6 py-2 rounded-full border border-white/20 text-[10px] font-bold uppercase tracking-widest transition-all" onclick="switchTab('retention')">Retention</button>
-                </div>
-            </div>
-
-            <div id="acquisition-content" class="grid lg:grid-cols-3 gap-8">
-                <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
-                    <div>
-                        <div class="text-pink-500 mb-6">
-                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 uppercase">Hyper-Local Scaling</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-8">
-                            We don't just blast ads. We geo-fence your specific service zones to ensure you aren't paying for leads 50 miles away from your trucks.
-                        </p>
-                    </div>
-                    <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
-                        <li>• Radius-Targeting</li>
-                        <li>• Competitor Geo-Conquest</li>
-                        <li>• Dynamic Local Creative</li>
-                    </ul>
-                </div>
-
-                <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
-                    <div>
-                        <div class="text-blue-500 mb-6">
-                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 uppercase">Meta Funnel Logic</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-8">
-                            Complex retargeting paths. If someone sees your ad and doesn't convert, they see a testimonial the next day, and an offer the day after.
-                        </p>
-                    </div>
-                    <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
-                        <li>• Multi-Step Retargeting</li>
-                        <li>• Video VSL Funnels</li>
-                        <li>• Instant Lead Forms</li>
-                    </ul>
-                </div>
-
-                <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
-                    <div>
-                        <div class="text-purple-500 mb-6">
-                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 uppercase">Data Feedback</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-8">
-                            We plug directly into your CRM to see which ads result in actual paid jobs, not just "leads," allowing us to optimize for profit, not impressions.
-                        </p>
-                    </div>
-                    <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
-                        <li>• CRM Integration</li>
-                        <li>• ROAS Tracking</li>
-                        <li>• Targeted and Specialized</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Content for Retention (Hidden by default) -->
-            <div id="retention-content" class="hidden grid lg:grid-cols-3 gap-8">
-                 <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
-                    <div>
-                        <div class="text-green-500 mb-6">
-                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 uppercase">Instant AI Text</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-8">
-                            When a lead comes in, our AI texts them within 3 seconds. Statistics show a 400% increase in conversion if you contact a lead within 5 minutes.
-                        </p>
-                    </div>
-                    <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
-                        <li>• Instant Messaging</li>
-                        <li>• Natural Language API</li>
-                        <li>• Lead Qualification</li>
-                    </ul>
-                </div>
-                <!-- Add more as needed... -->
-            </div>
+<section id="systems" class="py-32 px-6 md:px-12 lg:px-24">
+    <div class="max-w-7xl mx-auto">
+  
+      <!-- Header -->
+      <div class="flex flex-col lg:flex-row justify-between items-end mb-24 gap-8">
+        <div class="max-w-2xl">
+          <span class="text-xs font-bold tracking-[0.5em] uppercase opacity-40 mb-4 block">Engineered Outcomes</span>
+          <h2 class="text-4xl md:text-6xl font-bold tracking-tighter">The Dual-Engine Core</h2>
         </div>
-    </section>
+        <div class="flex gap-3">
+          <button
+            id="tab-acquisition"
+            class="tab-btn px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-200"
+            onclick="switchTab('acquisition')"
+          >Acquisition</button>
+          <button
+            id="tab-retention"
+            class="tab-btn px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-200"
+            onclick="switchTab('retention')"
+          >Retention</button>
+        </div>
+      </div>
+  
+      <!-- Acquisition Content -->
+      <div id="acquisition-content" class="grid lg:grid-cols-3 gap-8">
+  
+        <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
+          <div>
+            <div class="text-pink-500 mb-6">
+              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 uppercase">Hyper-Local Scaling</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-8">
+              We don't just blast ads. We geo-fence your specific service zones to ensure you aren't paying for leads 50 miles away from your trucks.
+            </p>
+          </div>
+          <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
+            <li>• Radius-Targeting</li>
+            <li>• Competitor Geo-Conquest</li>
+            <li>• Dynamic Local Creative</li>
+          </ul>
+        </div>
+  
+        <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
+          <div>
+            <div class="text-blue-500 mb-6">
+              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 uppercase">Meta Funnel Logic</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-8">
+              Complex retargeting paths. If someone sees your ad and doesn't convert, they see a testimonial the next day, and an offer the day after.
+            </p>
+          </div>
+          <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
+            <li>• Multi-Step Retargeting</li>
+            <li>• Video VSL Funnels</li>
+            <li>• Instant Lead Forms</li>
+          </ul>
+        </div>
+  
+        <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
+          <div>
+            <div class="text-purple-500 mb-6">
+              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 uppercase">Data Feedback</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-8">
+              We plug directly into your CRM to see which ads result in actual paid jobs — not just "leads" — allowing us to optimize for profit, not impressions.
+            </p>
+          </div>
+          <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
+            <li>• CRM Integration</li>
+            <li>• ROAS Tracking</li>
+            <li>• Targeted and Specialized</li>
+          </ul>
+        </div>
+  
+      </div>
+  
+      <!-- Retention Content -->
+      <div id="retention-content" class="hidden grid lg:grid-cols-3 gap-8">
+  
+        <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
+          <div>
+            <div class="text-green-500 mb-6">
+              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 uppercase">Instant AI Text</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-8">
+              When a lead comes in, our AI texts them within 3 seconds. Statistics show a 400% increase in conversion if you contact a lead within 5 minutes.
+            </p>
+          </div>
+          <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
+            <li>• Instant Messaging</li>
+            <li>• Natural Language API</li>
+            <li>• Lead Qualification</li>
+          </ul>
+        </div>
+  
+        <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
+          <div>
+            <div class="text-yellow-400 mb-6">
+              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 uppercase">Automated Follow-Up</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-8">
+              Most businesses give up after one follow-up. Our AI sends a perfectly timed sequence — texts, emails, and voicemails — until you get a yes or a no.
+            </p>
+          </div>
+          <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
+            <li>• Multi-Channel Sequences</li>
+            <li>• Smart Send-Time Optimization</li>
+            <li>• Auto Stop-on-Reply</li>
+          </ul>
+        </div>
+  
+        <div class="glass-card p-10 flex flex-col justify-between h-[500px]">
+          <div>
+            <div class="text-orange-400 mb-6">
+              <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 uppercase">Reputation Engine</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-8">
+              After every completed job, our system automatically requests a Google review. More 5-star reviews mean lower ad costs and higher organic trust.
+            </p>
+          </div>
+          <ul class="space-y-3 text-[10px] font-bold uppercase tracking-widest opacity-60">
+            <li>• Auto Review Requests</li>
+            <li>• Google & Facebook Sync</li>
+            <li>• Negative Review Interception</li>
+          </ul>
+        </div>
+  
+      </div>
+  
+      <!-- Bottom nav dots -->
+      <div class="flex justify-center items-center gap-6 mt-16">
+        <button onclick="switchTab('acquisition')" id="dot-acquisition" class="tab-dot transition-all duration-300" aria-label="Acquisition"></button>
+        <button onclick="switchTab('retention')" id="dot-retention" class="tab-dot transition-all duration-300" aria-label="Retention"></button>
+      </div>
+  
+      <!-- Bottom stat bar -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-px mt-20 border border-white/10 rounded-2xl overflow-hidden">
+        <div class="px-8 py-6 bg-white/5">
+          <div class="text-3xl font-black tracking-tighter mb-1">3 sec</div>
+          <div class="text-[10px] font-bold uppercase tracking-widest opacity-40">Avg Lead Response Time</div>
+        </div>
+        <div class="px-8 py-6 bg-white/5">
+          <div class="text-3xl font-black tracking-tighter mb-1">400%</div>
+          <div class="text-[10px] font-bold uppercase tracking-widest opacity-40">Conversion Lift &lt;5 Min</div>
+        </div>
+        <div class="px-8 py-6 bg-white/5">
+          <div class="text-3xl font-black tracking-tighter mb-1">35%</div>
+          <div class="text-[10px] font-bold uppercase tracking-widest opacity-40">More Leads via AI Targeting</div>
+        </div>
+        <div class="px-8 py-6 bg-white/5">
+          <div class="text-3xl font-black tracking-tighter mb-1">2×</div>
+          <div class="text-[10px] font-bold uppercase tracking-widest opacity-40">Avg Revenue in 90 Days</div>
+        </div>
+      </div>
+  
+    </div>
+  </section>
+  
+  <style>
+    .tab-btn {
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.5);
+    }
+    .tab-btn.active {
+      background: white;
+      color: black;
+      border-color: white;
+    }
+    .tab-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    .tab-dot.active {
+      background: white;
+      width: 28px;
+      border-radius: 4px;
+    }
+    #retention-content.hidden,
+    #acquisition-content.hidden {
+      display: none;
+    }
+  </style>
+  
+  <script>
+    function switchTab(tab) {
+      var acqContent  = document.getElementById('acquisition-content');
+      var retContent  = document.getElementById('retention-content');
+      var acqBtn      = document.getElementById('tab-acquisition');
+      var retBtn      = document.getElementById('tab-retention');
+      var dotAcq      = document.getElementById('dot-acquisition');
+      var dotRet      = document.getElementById('dot-retention');
+  
+      if (tab === 'acquisition') {
+        acqContent.classList.remove('hidden');
+        retContent.classList.add('hidden');
+        acqBtn.classList.add('active');
+        retBtn.classList.remove('active');
+        dotAcq.classList.add('active');
+        dotRet.classList.remove('active');
+      } else {
+        retContent.classList.remove('hidden');
+        acqContent.classList.add('hidden');
+        retBtn.classList.add('active');
+        acqBtn.classList.remove('active');
+        dotRet.classList.add('active');
+        dotAcq.classList.remove('active');
+      }
+    }
+  
+    // Init active state
+    switchTab('acquisition');
+  </script>
 
     <!-- The "How it Works" Visual Timeline -->
     <section class="py-32 bg-zinc-950 overflow-hidden">
@@ -671,65 +1025,183 @@
         </div>
     </section>
 
-    <section id="contact" class="py-40 px-6 md:px-12 lg:px-24 relative overflow-hidden">
+    <!-- Final Contact -->
+<section id="contact" class="py-40 px-6 md:px-12 lg:px-24 relative overflow-hidden">
     <div class="orb orb-1 opacity-20"></div>
-    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20">
-        <div>
-            <h2 class="text-6xl md:text-8xl font-black mb-8 tracking-tighter">Ready to<br>automate?</h2>
-            <p class="text-xl text-gray-400 mb-12 font-light">Stop losing jobs to the "No Answer" void. Start scaling with engineered precision.</p>
-            
-            <div class="space-y-6">
-                <div class="flex items-center space-x-4"></div>
-                <div class="flex items-center space-x-4"></div>
+    <div class="grid-bg absolute inset-0 z-[-2]"></div>
+  
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-start">
+  
+      <!-- Left: Copy -->
+      <div>
+        <div class="inline-flex items-center space-x-3 px-3 py-1 rounded-full border border-white/10 bg-white/5 mb-8 backdrop-blur-md">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-pink-500"></span>
+          </span>
+          <span class="text-[10px] font-bold uppercase tracking-[0.2em] opacity-80">Limited Spots Available</span>
+        </div>
+  
+        <h2 class="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-[0.9] text-gradient">
+          Ready to<br>automate?
+        </h2>
+  
+        <p class="text-xl text-gray-400 mb-16 font-light leading-relaxed max-w-md">
+          Stop losing jobs to the "No Answer" void. Start scaling with engineered precision built for your market.
+        </p>
+  
+        <!-- Direct contact -->
+        <div class="space-y-4">
+          <p class="text-[10px] font-bold uppercase tracking-widest opacity-40">Or reach us directly</p>
+  
+          <a href="mailto:digiwerksai@digiwerksai.com" class="flex items-center space-x-4 group w-fit">
+            <div class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:border-pink-500/50 transition-all">
+              <svg class="w-4 h-4 text-gray-400 group-hover:text-pink-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
             </div>
+            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">digiwerksai@digiwerksai.com</span>
+          </a>
         </div>
-
-        <div class="glass-card p-10 relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-transparent pointer-events-none"></div>
-            
-            <form id="contact-form" action="https://formspree.io/f/myzralao" method="POST" class="space-y-8 relative z-10">
-                <div class="grid grid-cols-2 gap-8">
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">First Name</label>
-                        <input type="text" name="first_name" class="w-full bg-transparent border-b border-white/20 focus:border-white outline-none py-2 transition-all" required>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">Business Name</label>
-                        <input type="text" name="business_name" class="w-full bg-transparent border-b border-white/20 focus:border-white outline-none py-2 transition-all" required>
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">Email Address</label>
-                    <input type="email" name="email" class="w-full bg-transparent border-b border-white/20 focus:border-white outline-none py-2 transition-all" required>
-                </div>
-                <div class="space-y-2">
-                    <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">Monthly Revenue</label>
-                    <select name="monthly_revenue" class="w-full bg-transparent border-b border-white/20 focus:border-white outline-none py-2 transition-all appearance-none cursor-pointer">
-                        <option class="bg-black" value="$0 - $25k">$0 - $25k</option>
-                        <option class="bg-black" value="$25k - $100k">$25k - $100k</option>
-                        <option class="bg-black" value="$100k - $500k">$100k - $500k</option>
-                        <option class="bg-black" value="$500k+">$500k+</option>
-                    </select>
-                </div>
-
-                <input type="hidden" name="estimated_revenue_recovery" id="hiddenRevenue">
-
-                <button type="submit" class="w-full py-6 bg-white text-black font-black uppercase tracking-[0.3em] text-[10px] hover:invert transition-all">
-                    Request Growth Audit
-                </button>
-            </form>
+      </div>
+  
+      <!-- Right: Form -->
+      <div class="glass-card p-10 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-purple-500/5 pointer-events-none"></div>
+  
+        <!-- Success state -->
+        <div id="form-success" class="hidden absolute inset-0 z-20 flex flex-col items-center justify-center text-center p-10 bg-black/80 backdrop-blur-sm rounded-3xl">
+          <div class="w-16 h-16 rounded-full bg-white/5 border border-white/20 flex items-center justify-center mb-6">
+            <svg class="w-8 h-8 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-black tracking-tighter mb-3">You're in the queue.</h3>
+          <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
+            We'll be in touch shortly. You can also reach us directly at
+            <a href="mailto:digiwerksai@digiwerksai.com" class="text-white underline">digiwerksai@digiwerksai.com</a>.
+          </p>
         </div>
+  
+        <form id="contact-form" action="https://formspree.io/f/myzralao" method="POST" class="space-y-8 relative z-10">
+  
+          <div class="text-[10px] font-bold uppercase tracking-widest opacity-40">Your Details</div>
+  
+          <div class="grid grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">First Name</label>
+              <input type="text" name="first_name" placeholder="John" class="w-full bg-transparent border-b border-white/20 focus:border-pink-500 outline-none py-3 transition-all text-sm placeholder-white/20" required>
+            </div>
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">Business Name</label>
+              <input type="text" name="business_name" placeholder="Acme HVAC" class="w-full bg-transparent border-b border-white/20 focus:border-pink-500 outline-none py-3 transition-all text-sm placeholder-white/20" required>
+            </div>
+          </div>
+  
+          <div class="space-y-2">
+            <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">Email Address</label>
+            <input type="email" name="email" placeholder="you@yourbusiness.com" class="w-full bg-transparent border-b border-white/20 focus:border-pink-500 outline-none py-3 transition-all text-sm placeholder-white/20" required>
+          </div>
+  
+          <div class="space-y-2">
+            <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">Phone Number</label>
+            <input type="tel" name="phone" placeholder="+1 (555) 000-0000" class="w-full bg-transparent border-b border-white/20 focus:border-pink-500 outline-none py-3 transition-all text-sm placeholder-white/20">
+          </div>
+  
+          <div class="space-y-2">
+            <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">Monthly Revenue</label>
+            <select name="monthly_revenue" class="w-full bg-transparent border-b border-white/20 focus:border-pink-500 outline-none py-3 transition-all appearance-none cursor-pointer text-sm">
+              <option class="bg-black" value="$0 - $25k">$0 – $25k</option>
+              <option class="bg-black" value="$25k - $100k">$25k – $100k</option>
+              <option class="bg-black" value="$100k - $500k">$100k – $500k</option>
+              <option class="bg-black" value="$500k+">$500k+</option>
+            </select>
+          </div>
+  
+          <div class="space-y-3">
+            <label class="text-[10px] font-bold uppercase tracking-widest opacity-40">Biggest Growth Challenge</label>
+            <div class="grid grid-cols-2 gap-3">
+              <label class="challenge-pill flex items-center gap-2 px-4 py-3 rounded-xl border border-white/10 cursor-pointer hover:border-pink-500/50 transition-all text-xs font-bold uppercase tracking-wider opacity-60 hover:opacity-100">
+                <input type="radio" name="challenge" value="Not enough leads" class="hidden"> Not Enough Leads
+              </label>
+              <label class="challenge-pill flex items-center gap-2 px-4 py-3 rounded-xl border border-white/10 cursor-pointer hover:border-pink-500/50 transition-all text-xs font-bold uppercase tracking-wider opacity-60 hover:opacity-100">
+                <input type="radio" name="challenge" value="Low close rate" class="hidden"> Low Close Rate
+              </label>
+              <label class="challenge-pill flex items-center gap-2 px-4 py-3 rounded-xl border border-white/10 cursor-pointer hover:border-pink-500/50 transition-all text-xs font-bold uppercase tracking-wider opacity-60 hover:opacity-100">
+                <input type="radio" name="challenge" value="Poor follow-up" class="hidden"> Poor Follow-Up
+              </label>
+              <label class="challenge-pill flex items-center gap-2 px-4 py-3 rounded-xl border border-white/10 cursor-pointer hover:border-pink-500/50 transition-all text-xs font-bold uppercase tracking-wider opacity-60 hover:opacity-100">
+                <input type="radio" name="challenge" value="High churn" class="hidden"> High Churn
+              </label>
+            </div>
+          </div>
+  
+          <input type="hidden" name="estimated_revenue_recovery" id="hiddenRevenue">
+  
+          <button type="submit" class="w-full py-6 bg-white text-black font-black uppercase tracking-[0.3em] text-[10px] hover:invert transition-all">
+            <span id="btn-text">Request Growth Audit</span>
+            <span id="btn-loading" class="hidden">Sending...</span>
+          </button>
+  
+          <p class="text-center text-[10px] opacity-20 uppercase tracking-widest">No spam. No hard sell. Just strategy.</p>
+  
+        </form>
+      </div>
+  
     </div>
-</section>
-                
-                <input type="hidden" name="estimated_revenue_recovery" id="hiddenRevenue">
-    
-                <button type="submit" class="w-full py-6 bg-white text-black font-black uppercase tracking-[0.3em] text-[10px] hover:invert transition-all">
-                    Request Growth Audit
-                </button>
-            </form>
-        </div>
-    </section>
+  </section>
+  
+  <style>
+    .challenge-pill:has(input:checked) {
+      border-color: rgba(235, 62, 126, 0.6);
+      background: rgba(235, 62, 126, 0.08);
+      opacity: 1;
+    }
+  </style>
+  
+  <script>
+    (function () {
+      var form = document.getElementById('contact-form');
+      var successBox = document.getElementById('form-success');
+      var btnText = document.getElementById('btn-text');
+      var btnLoading = document.getElementById('btn-loading');
+  
+      // Sync ROI calculator value into hidden field if calculator is on the page
+      function syncRevenue() {
+        var revenueEl = document.getElementById('total-revenue');
+        var hiddenEl = document.getElementById('hiddenRevenue');
+        if (revenueEl && hiddenEl) {
+          hiddenEl.value = '$' + revenueEl.textContent;
+        }
+      }
+      syncRevenue();
+  
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        syncRevenue();
+        btnText.classList.add('hidden');
+        btnLoading.classList.remove('hidden');
+  
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        }).then(function (res) {
+          if (res.ok) {
+            successBox.classList.remove('hidden');
+            form.reset();
+          } else {
+            alert('Something went wrong. Please email us directly at digiwerksai@digiwerksai.com');
+          }
+        }).catch(function () {
+          alert('Something went wrong. Please email us directly at digiwerksai@digiwerksai.com');
+        }).finally(function () {
+          btnText.classList.remove('hidden');
+          btnLoading.classList.add('hidden');
+        });
+      });
+    })();
+  </script>
 
     <!-- Modern Footer -->
     <footer class="bg-black pt-40 pb-12 px-6 md:px-12 lg:px-24 border-t border-white/5 relative overflow-hidden">
@@ -862,27 +1334,24 @@
             menu.classList.add('translate-x-full');
         };
 
-       // Form Submit Logic
+       // Form Submit
 document.getElementById('contact-form').onsubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const btn = form.querySelector('button');
-    const originalText = btn.innerText;
-
-    // 1. Capture the ROI from your calculator before sending
+    
+    // Capture the ROI result from your calculator if available
     const roiDisplay = document.getElementById('calcResult');
     const hiddenInput = document.getElementById('hiddenRevenue');
     if (roiDisplay && hiddenInput) {
-        // This grabs the dollar amount text from your calculator display
-        hiddenInput.value = roiDisplay.innerText.trim();
+        hiddenInput.value = roiDisplay.innerText;
     }
 
-    // 2. Visual feedback for the user
+    // Visual feedback while sending
+    const originalText = btn.innerText;
     btn.innerText = "SENDING...";
-    btn.disabled = true;
 
     try {
-        // 3. Send the data to Formspree
         const response = await fetch(form.action, {
             method: 'POST',
             body: new FormData(form),
@@ -890,24 +1359,17 @@ document.getElementById('contact-form').onsubmit = async (e) => {
         });
 
         if (response.ok) {
-            // Success styling
+            // Your original success styling
             btn.innerText = "Audit Requested Successfully";
             btn.style.backgroundColor = "#10b981";
             btn.style.color = "white";
             btn.style.filter = "none"; 
             form.reset();
         } else {
-            // Error handling
-            const data = await response.json();
-            if (data.errors) {
-                btn.innerText = "Error: " + data.errors.map(error => error.message).join(", ");
-            } else {
-                btn.innerText = "Submission Error";
-            }
+            btn.innerText = "Submission Error";
         }
     } catch (error) {
         btn.innerText = "Connection Error";
-        console.error(error);
     }
 };
     </script>
